@@ -8,7 +8,7 @@
 
 This is a small javascript snippet to use [Bootstrap Button Groups](https://v4-alpha.getbootstrap.com/components/button-group/) for toggle buttons.
 
-Have a look at [jsfiddle](https://jsfiddle.net/ysq84yj6/).
+Have a look at [jsfiddle](https://jsfiddle.net/prokki/tccew78a/).
 
 ### Table of Contents
 
@@ -103,13 +103,13 @@ See [classActive](#classActive)
 <label class="control-label">Choose your documents!</label>
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
     <label class="btn active" role="button">
-        <input type="checckbox" name="options" value="1">Document 1
+        <input type="checkbox" name="options" value="1">Document 1
     </label>
     <label class="btn active" role="button">
-        <input type="checckbox" name="options" value="2">Document 2
+        <input type="checkbox" name="options" value="2">Document 2
     </label>
     <label class="btn" role="button">
-        <input type="checckbox" name="options" value="3">Document 3
+        <input type="checkbox" name="options" value="3">Document 3
     </label>
 </div>
 ```
