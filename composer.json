@@ -1,0 +1,31 @@
+{
+  "name": "prokki/twbs-toggle-buttons",
+  "description": "A small javascript snippet to use Bootstrap Button Groups (https://v4-alpha.getbootstrap.com/components/button-group/) for toggle buttons.",
+  "homepage": "https://github.com/prokki/twbs-toggle-buttons",
+  "type": "library",
+  "keywords": [
+	"bootstrap",
+	"radio",
+	"checkbox"
+  ],
+  "license": "MIT",
+  "require": {
+	"php": ">=5.4"
+  },
+  "authors": [
+	{
+	  "name": "Falko Matthies",
+	  "email": "falko.m@web.de"
+	}
+  ],
+  "extra": {
+	"component": {
+	  "scripts": [
+		"jquery.twbs-toggle-buttons.min.js"
+	  ],
+	  "files": [
+		"jquery.twbs-toggle-buttons.min.js"
+	  ]
+	}
+  }
+}
