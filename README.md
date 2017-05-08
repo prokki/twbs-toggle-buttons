@@ -14,13 +14,13 @@ This is a small javascript snippet to use [Bootstrap Button Groups](https://v4-a
 * [Integrations](#integrations)
 * [The Basics](#the-basics)
 * [Options](#options)
-  * [twbsBtnSelector](#twbs-btn-selector)
-  * [classActive](#class-active)
-  * [classInctive](#class-inactive)
+  * [twbsBtnSelector](#twbsBtnSelector)
+  * [classActive](#classActive)
+  * [classInctive](#classInactive)
 * [Tricks and Tips](#tricks-and-tips)
   * [Checkboxes or Radio Buttons](#checkboxes-or-radio-buttons)
   * [Required Radio Group](#required-radio-group)
-  * [Overwrite classActive](#overwrite-class-active)
+  * [Overwrite classActive](#overwrite-classActive)
 
 ### Demo
 
