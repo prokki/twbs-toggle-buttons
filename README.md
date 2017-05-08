@@ -8,6 +8,20 @@
 
 This is a small javascript snippet to use [Bootstrap Button Groups](https://v4-alpha.getbootstrap.com/components/button-group/) for toggle buttons.
 
+### Table of Contents
+
+* [Demo](#demo)
+* [Integrations](#integrations)
+* [The Basics](#the-basics)
+* [Options](#options)
+  * [twbsBtnSelector](#twbs-btn-selector)
+  * [classActive](#class-active)
+  * [classInctive](#class-inactive)
+* [Tricks and Tips](#tricks-and-tips)
+  * [Checkboxes or Radio Buttons](#checkboxes-or-radio-buttons)
+  * [Required Radio Group](#required-radio-group)
+  * [Overwrite classActive](#overwrite-class-active)
+
 ### Demo
 
 Have a look at [jsfiddle](https://jsfiddle.net/ysq84yj6/).
@@ -103,7 +117,7 @@ See [classActive](#classActive)
 </div>
 ```
 
-#### Required Radio Group 
+#### Required Radio Group
 
 If radio buttons are used, usually exactly one button must be active.
 
