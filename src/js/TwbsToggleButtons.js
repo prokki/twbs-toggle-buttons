@@ -1,64 +1,139 @@
-/** @preserve Twitter Bootstrap Toogle Buttons 0.0.1
+/** @preserve Twitter Bootstrap Toogle Buttons 0.0.0
  * Available under the MIT license.
  * See https://github.com/prokki/twbs-toggle-buttons for more information.
  */
 
 /**
+ * @class
  *
- * @param {Object} $element - jQuery object container of the related DOM element
- * @param {Object} options  - initial options
- *
- * @property {Object}                  _options                   - properties of SelectableTable
- * @property {boolean}                 _options.allowNone         - all elements which can be selected
- * @property {string}                  _options.classActive       - all elements which can be selected
- * @property {Array.<string>}          _options.twbsClassActive   - all elements which can be selected
- * @property {Array.<string>}          _options.twbsClassDeactive - all elements which can be selected
- * @property {Object|Array.<function>} _options.events            - all elements which can be selected
- *
- * @constructor
+ * @property {Object}         $_element                - the associated jquery DOM element
+ * @property {Object}         _options                 - properties of the TwbsToggleButtons container
+ * @property {string}         _options.twbsBtnSelector - current button selector
+ * @property {Array.<string>} _options.classActive     - a class (a string) or an array of class of active buttons
+ * @property {Array.<string>} _options.classInactive   - a class (a string) or an array of class of inactive buttons
  */
-function TwbsToggleButtons($element, options)
-{
+class TwbsToggleButtons {
 
-	/*******************************************************************************
-	 *** properties
-	 *******************************************************************************/
+	/**
+	 *
+	 * @returns {number}
+	 */
+	static TYPE_RADIO()
+	{
+		return 1;
+	}
 
-	this.$_element = $element;
+	/**
+	 *
+	 * @returns {number}
+	 */
+	static TYPE_CHECKBOX()
+	{
+		return 2;
+	}
 
-	/*******************************************************************************
-	 *** methods
-	 *******************************************************************************/
+	/**
+	 *
+	 * @returns {{
+	 *     twbsBtnSelector: string,
+	 *     classActive: string,
+	 *     classInactive: string
+	 * }}
+	 */
+	static DEFAULTS()
+	{
+		return {
+			twbsBtnSelector: "[role='button']",
+			classActive: "btn-success",
+			classInactive: "btn-secondary"
+		};
+	};
+
+	/**
+	 *
+	 * @returns {string}
+	 */
+	static ACTIVE_CLASS()
+	{
+		return "active";
+	}
+
+	/**
+	 * @param {Object} $element - jQuery object container of the related DOM element
+	 * @param {Object} options  - initial options
+	 */
+	constructor($element, options)
+	{
+		this.$_element = $element;
+
+		this._initializeOptions(options);
+
+		this._initializeDOM();
+
+		this.$_element.find(this._options.twbsBtnSelector).on("click", this._eventClick.bind(this));
+
+		this.$_element.data("twbsToggleButtons", this);
+	}
+
+	_getInputType()
+	{
+		let radios = 0;
+		let checkboxes = 0;
+
+		this.$_element.find(":input").each(function()
+		{
+			if( this.getAttribute("type") === "radio" )
+			{
+				radios++;
+			}
+			else if( this.getAttribute("type") === "checkbox" )
+			{
+				checkboxes++;
+			}
+			else
+			{
+				throw "All input fields must be either of type 'radio' or of type 'checkbox, found '" + this.getAttribute("type") + "'";
+			}
+		});
+
+		if( radios !== 0 && checkboxes !== 0 )
+		{
+			throw "All input fields must be either of type 'radio' or of type 'checkbox, found both.";
+		}
+
+		// use 'radio' if no input fields are included
+		return (checkboxes > 0) ? TwbsToggleButtons.TYPE_CHECKBOX() : TwbsToggleButtons.TYPE_RADIO();
+	};
 
 	/**
 	 *
 	 * @private
 	 */
-	this._initializeOptions = function(options)
+	_initializeOptions(options)
 	{
-		this._options = $.extend({}, TwbsToggleButtons.DEFAULTS, options || {});
+		this._options = $.extend({}, TwbsToggleButtons.DEFAULTS(), options || {});
 
-		if( typeof this._options.twbsClassActive === "string" )
+		if( typeof this._options.classActive === "string" )
 		{
-			this._options.twbsClassActive = [this._options.twbsClassActive];
+			this._options.classActive = [this._options.classActive];
 		}
 
-		if( typeof this._options.twbsClassDeactive === "string" )
+		if( typeof this._options.classInactive === "string" )
 		{
-			this._options.twbsClassDeactive = [this._options.twbsClassDeactive];
+			this._options.classInactive = [this._options.classInactive];
 		}
 	};
 
 	/**
 	 *
-	 * @param {HTMLElement} active_button
+	 * @param {Array<HTMLElement>} active_buttons
 	 * @private
 	 */
-	this._resetDOM = function(active_button)
+	_resetDOM(active_buttons)
 	{
-		this.$_element.find("[role='button']").each(function(_, _button)
+		this.$_element.find(this._options.twbsBtnSelector).each(function(_, _button)
 		{
-			if( _button === active_button )
+			if( active_buttons.indexOf(_button) !== -1 )
 			{
 				this._activateButton(_button);
 			}
@@ -67,28 +142,24 @@ function TwbsToggleButtons($element, options)
 				this._deactivateButton(_button);
 			}
 		}.bind(this));
+
+
 	};
 
 	/**
 	 *
 	 * @private
 	 */
-	this._initializeDOM = function()
+	_initializeDOM()
 	{
-		let active_button = this.$_element.find("[role='button']").filter("." + this._options.classActive);
+		let active_buttons = this.$_element.find(this._options.twbsBtnSelector).filter("." + TwbsToggleButtons.ACTIVE_CLASS()).toArray();
 
-		if( active_button.length > 1 )
+		if( active_buttons.length > 1 && this._getInputType() === TwbsToggleButtons.TYPE_RADIO() )
 		{
-			throw "Only one element with class '" + this._options.classActive + "' allowed within a twbsToggleButton group.";
+			active_buttons = [active_buttons.pop()];
 		}
-		else if( active_button.length === 0 && !this._options.allowNone )
-		{
-			throw "If option 'allowNone' is set to false, an element must get class '" + this._options.classActive + "'.";
-		}
-		else if( active_button.length === 1 )
-		{
-			this._resetDOM(active_button.get(0));
-		}
+
+		this._resetDOM(active_buttons);
 	};
 
 	/**
@@ -97,18 +168,40 @@ function TwbsToggleButtons($element, options)
 	 * @returns {boolean}
 	 * @private
 	 */
-	this._eventClick = function(e)
+	_eventClick(e)
 	{
-		let active_button = e.currentTarget;
+		let current_active_buttons = this.$_element.find(this._options.twbsBtnSelector).filter("." + TwbsToggleButtons.ACTIVE_CLASS()).toArray();
 
-		if( active_button.classList.contains(this._options.classActive) )
+		let clicked_button = e.currentTarget;
+
+		// TYPE_RADIO
+		if( this._getInputType() === TwbsToggleButtons.TYPE_RADIO() )
 		{
-			return false;
+			current_active_buttons = [clicked_button];
+
+			// deactivate active button if it is allowed to have no active button
+			if( clicked_button.classList.contains(TwbsToggleButtons.ACTIVE_CLASS()) &&
+				this.$_element.find(this._options.twbsBtnSelector).find(":input[required]").length === 0 )
+			{
+				current_active_buttons = [];
+			}
+		}
+		// TYPE_CHECKBOX
+		else
+		{
+			if( clicked_button.classList.contains(TwbsToggleButtons.ACTIVE_CLASS()) && current_active_buttons.indexOf(clicked_button) !== -1 )
+			{
+				current_active_buttons.splice(current_active_buttons.indexOf(clicked_button), 1);
+			}
+			else
+			{
+				current_active_buttons.push(clicked_button);
+			}
 		}
 
-		this._resetDOM(active_button);
+		this._resetDOM(current_active_buttons);
 
-		return true;
+		return false;
 	};
 
 	/**
@@ -116,28 +209,29 @@ function TwbsToggleButtons($element, options)
 	 * @param {HTMLElement} button
 	 * @private
 	 */
-	this._activateButton = function(button)
+	_activateButton(button)
 	{
-
 		if( button.dataset.twbsToggleButtonsClassActive !== undefined && button.dataset.twbsToggleButtonsClassActive.length > 0 )
 		{
 			button.classList.add(button.dataset.twbsToggleButtonsClassActive);
 		}
 		else
 		{
-			this._options.twbsClassActive.forEach(function(__class)
+			this._options.classActive.forEach(function(__class)
 			{
 				button.classList.add(__class);
 			});
 		}
 
-
-		this._options.twbsClassDeactive.forEach(function(__class)
+		this._options.classInactive.forEach(function(__class)
 		{
 			button.classList.remove(__class);
 		});
 
-		button.classList.add(this._options.classActive);
+		button.classList.add(TwbsToggleButtons.ACTIVE_CLASS());
+		button.setAttribute("aria-pressed", "true");
+		$(button).find(":input").attr("checked", "checked");
+
 	};
 
 	/**
@@ -145,39 +239,26 @@ function TwbsToggleButtons($element, options)
 	 * @param {HTMLElement} button
 	 * @private
 	 */
-	this._deactivateButton = function(button)
+	_deactivateButton(button)
 	{
-
 		if( button.dataset.twbsToggleButtonsClassActive !== undefined && button.dataset.twbsToggleButtonsClassActive.length > 0 )
 		{
 			button.classList.remove(button.dataset.twbsToggleButtonsClassActive);
 		}
 
-		this._options.twbsClassActive.forEach(function(__class)
+		this._options.classActive.forEach(function(__class)
 		{
 			button.classList.remove(__class);
 		});
 
-		this._options.twbsClassDeactive.forEach(function(__class)
+		this._options.classInactive.forEach(function(__class)
 		{
 			button.classList.add(__class);
 		});
 
-		button.classList.remove(this._options.classActive);
+		button.classList.remove(TwbsToggleButtons.ACTIVE_CLASS());
+		button.setAttribute("aria-pressed", "false");
+		$(button).find(":input").attr("checked", null);
 	};
 
-	this._initializeOptions(options);
-
-	this._initializeDOM();
-
-	this.$_element.find("[role='button']").on("click", this._eventClick.bind(this));
-
-	this.$_element.data("twbsToggleButtons", this);
 }
-
-TwbsToggleButtons.DEFAULTS = {
-	allowNone: false,
-	classActive: "active",
-	twbsClassActive: "btn-success",
-	twbsClassDeactive: "btn-secondary"
-};
