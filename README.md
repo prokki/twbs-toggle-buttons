@@ -1,7 +1,7 @@
 ## Twitter Bootstrap Toggle Buttons
 
-[![LICENSE](https://img.shields.io/badge/release-0.0.0-blue.svg?style=flat)](https://github.com/prokki/twbs-toggle-buttons/releases/tag/0.0.0)
-[![Packagist](https://img.shields.io/badge/Packagist-0.0.0-blue.svg?style=flat)](https://packagist.org/packages/prokki/twbs-toggle-buttons)
+[![LICENSE](https://img.shields.io/badge/release-0.0.1-blue.svg?style=flat)](https://github.com/prokki/twbs-toggle-buttons/releases/tag/0.0.1)
+[![Packagist](https://img.shields.io/badge/Packagist-0.0.1-blue.svg?style=flat)](https://packagist.org/packages/prokki/twbs-toggle-buttons)
 [![LICENSE](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](LICENSE)
 [![https://jquery.com/](https://img.shields.io/badge/jQuery-3.1.1-red.svg?style=flat)](https://jquery.com/)
 [![https://v4-alpha.getbootstrap.com/](https://img.shields.io/badge/Bootstrap-4.0.0--alpha6-red.svg?style=flat)](https://v4-alpha.getbootstrap.com/)
