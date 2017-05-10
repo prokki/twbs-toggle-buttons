@@ -182,8 +182,6 @@ class TwbsToggleButtons {
 			// deactivate active button if it is allowed to have no active button
 			if( clicked_button.classList.contains(TwbsToggleButtons.ACTIVE_CLASS()) )
 			{
-				console.log('prevent');
-
 				e.stopPropagation();
 
 				if( this.$_element.find(this._options.twbsBtnSelector).find(":input[required]").length === 0 )
