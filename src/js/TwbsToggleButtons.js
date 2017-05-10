@@ -142,8 +142,6 @@ class TwbsToggleButtons {
 				this._deactivateButton(_button);
 			}
 		}.bind(this));
-
-
 	};
 
 	/**
@@ -152,12 +150,29 @@ class TwbsToggleButtons {
 	 */
 	_initializeDOM()
 	{
-		let active_buttons = this.$_element.find(this._options.twbsBtnSelector).filter("." + TwbsToggleButtons.ACTIVE_CLASS()).toArray();
+		let buttons = this.$_element.find(this._options.twbsBtnSelector);
+
+		let active_buttons = buttons.filter("." + TwbsToggleButtons.ACTIVE_CLASS()).toArray();
 
 		if( active_buttons.length > 1 && this._getInputType() === TwbsToggleButtons.TYPE_RADIO() )
 		{
 			active_buttons = [active_buttons.pop()];
 		}
+
+		// (re)set the "aria-pressed" attribute, because this attribute is determining whether
+		// the button is active or not
+		buttons.each(function(_, _button)
+		{
+			if( active_buttons.indexOf(_button) !== -1 )
+			{
+				_button.setAttribute("aria-pressed", "true");
+			}
+			else
+			{
+				_button.setAttribute("aria-pressed", "false");
+			}
+		}.bind(this));
+
 
 		this._resetDOM(active_buttons);
 	};
@@ -170,7 +185,10 @@ class TwbsToggleButtons {
 	 */
 	_eventClick(e)
 	{
-		let current_active_buttons = this.$_element.find(this._options.twbsBtnSelector).filter("." + TwbsToggleButtons.ACTIVE_CLASS()).toArray();
+		let current_active_buttons = this.$_element.find(this._options.twbsBtnSelector).filter(function()
+		{
+			return this.getAttribute("aria-pressed") === "true";
+		}).toArray();
 
 		let clicked_button = e.currentTarget;
 
@@ -180,10 +198,8 @@ class TwbsToggleButtons {
 			current_active_buttons = [clicked_button];
 
 			// deactivate active button if it is allowed to have no active button
-			if( clicked_button.classList.contains(TwbsToggleButtons.ACTIVE_CLASS()) )
+			if( clicked_button.getAttribute("aria-pressed") === "true" )
 			{
-				e.stopPropagation();
-
 				if( this.$_element.find(this._options.twbsBtnSelector).find(":input[required]").length === 0 )
 				{
 					current_active_buttons = [];
@@ -194,7 +210,7 @@ class TwbsToggleButtons {
 		// TYPE_CHECKBOX
 		else
 		{
-			if( clicked_button.classList.contains(TwbsToggleButtons.ACTIVE_CLASS()) && current_active_buttons.indexOf(clicked_button) !== -1 )
+			if( clicked_button.getAttribute("aria-pressed") === "true" && current_active_buttons.indexOf(clicked_button) !== -1 )
 			{
 				current_active_buttons.splice(current_active_buttons.indexOf(clicked_button), 1);
 			}
@@ -233,7 +249,6 @@ class TwbsToggleButtons {
 			button.classList.remove(__class);
 		});
 
-		button.setAttribute("aria-pressed", "true");
 		$(button).find(":input").attr("checked", "checked");
 	};
 
@@ -259,16 +274,19 @@ class TwbsToggleButtons {
 			button.classList.add(__class);
 		});
 
+		$(button).find(":input").attr("checked", null);
+
 		// workaround on radio button:
 		//   the attribute "aria-pressed" stays on "true" (even if the attribute is changed furthermore),
-		//   so call toggle() once more 
+		//   remove the attribute manually with setTimeout() function 
 		if( this._getInputType() === TwbsToggleButtons.TYPE_RADIO() && button.getAttribute("aria-pressed") === "true" )
 		{
-			$(button).button('toggle');
+			window.setTimeout(function()
+			{
+				button.classList.remove(TwbsToggleButtons.ACTIVE_CLASS());
+				button.setAttribute("aria-pressed", "false");
+			}, 0);
 		}
-
-		button.setAttribute("aria-pressed", "false");
-		$(button).find(":input").attr("checked", null);
 	};
 
 }
