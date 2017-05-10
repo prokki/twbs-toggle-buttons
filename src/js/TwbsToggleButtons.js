@@ -180,11 +180,18 @@ class TwbsToggleButtons {
 			current_active_buttons = [clicked_button];
 
 			// deactivate active button if it is allowed to have no active button
-			if( clicked_button.classList.contains(TwbsToggleButtons.ACTIVE_CLASS()) &&
-				this.$_element.find(this._options.twbsBtnSelector).find(":input[required]").length === 0 )
+			if( clicked_button.classList.contains(TwbsToggleButtons.ACTIVE_CLASS()) )
 			{
-				current_active_buttons = [];
+				console.log('prevent');
+
+				e.stopPropagation();
+
+				if( this.$_element.find(this._options.twbsBtnSelector).find(":input[required]").length === 0 )
+				{
+					current_active_buttons = [];
+				}
 			}
+
 		}
 		// TYPE_CHECKBOX
 		else
@@ -201,7 +208,7 @@ class TwbsToggleButtons {
 
 		this._resetDOM(current_active_buttons);
 
-		return false;
+		return true;
 	};
 
 	/**
@@ -228,10 +235,8 @@ class TwbsToggleButtons {
 			button.classList.remove(__class);
 		});
 
-		button.classList.add(TwbsToggleButtons.ACTIVE_CLASS());
 		button.setAttribute("aria-pressed", "true");
 		$(button).find(":input").attr("checked", "checked");
-
 	};
 
 	/**
@@ -256,7 +261,14 @@ class TwbsToggleButtons {
 			button.classList.add(__class);
 		});
 
-		button.classList.remove(TwbsToggleButtons.ACTIVE_CLASS());
+		// workaround on radio button:
+		//   the attribute "aria-pressed" stays on "true" (even if the attribute is changed furthermore),
+		//   so call toggle() once more 
+		if( this._getInputType() === TwbsToggleButtons.TYPE_RADIO() && button.getAttribute("aria-pressed") === "true" )
+		{
+			$(button).button('toggle');
+		}
+
 		button.setAttribute("aria-pressed", "false");
 		$(button).find(":input").attr("checked", null);
 	};
