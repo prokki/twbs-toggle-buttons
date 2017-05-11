@@ -41,15 +41,15 @@ Include the following lines of code in the `<head>` section of your HTML.
 ```html
 <label class="control-label">Is it true?</label>
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <label class="btn active" role="button">
+    <div class="btn active" role="button">
         <input type="radio" name="options" value="1" required="required">yes 1
-    </label>
-    <label class="btn active" role="button">
+    </div>
+    <div class="btn active" role="button">
         <input type="radio" name="options" value="2">yes 2
-    </label>
-    <label class="btn" role="button">
+    </div>
+    <div class="btn" role="button">
         <input type="radio" name="options" value="0">no
-    </label>
+    </div>
 </div>
 <script>
     $(".btn-group-toggle").twbsToggleButtons();
@@ -66,8 +66,8 @@ The default selector of all buttons is `[role="button"]`. To avoid this special 
 ```html
 <label class="control-label">Is it true?</label>
 <div class="btn-group btn-group-toggle">
-    <label class="btn" required="required">yes</label>
-    <label class="btn">no</label>
+    <div class="btn" required="required">yes</div>
+    <div class="btn">no</div>
 </div>
 <script>
     $(".btn-group-toggle").twbsToggleButtons({
@@ -134,15 +134,15 @@ $(".btn-group-toggle").find("[role='button']").on("twbsToggleButtons:activate", 
 ```html
 <label class="control-label">Choose your documents!</label>
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <label class="btn active" role="button">
+    <div class="btn active" role="button">
         <input type="checkbox" name="options[]" value="1">Document 1
-    </label>
-    <label class="btn active" role="button">
+    </div>
+    <div class="btn active" role="button">
         <input type="checkbox" name="options[]" value="2">Document 2
-    </label>
-    <label class="btn" role="button">
+    </div>
+    <div class="btn" role="button">
         <input type="checkbox" name="options[]" value="3">Document 3
-    </label>
+    </div>
 </div>
 ```
 
@@ -160,10 +160,10 @@ with a corresponding class.
 ```html
 <label class="control-label">Is it true?</label>
 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <label class="btn active" role="button">
+    <div class="btn active" role="button">
         <input type="radio" name="options" value="1" required="required">yes
     </label>
-    <label class="btn active" role="button">
+    <div class="btn active" role="button">
         <input type="radio" name="options" value="0" data-twbs-toggle-buttons-class-active="btn-danger">no
     </label>
 </div>
