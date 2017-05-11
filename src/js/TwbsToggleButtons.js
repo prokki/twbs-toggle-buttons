@@ -12,7 +12,8 @@
  * @property {Array.<string>} _options.classActive     - a class (a string) or an array of class of active buttons
  * @property {Array.<string>} _options.classInactive   - a class (a string) or an array of class of inactive buttons
  */
-class TwbsToggleButtons {
+class TwbsToggleButtons
+{
 
 	/**
 	 *
@@ -80,13 +81,13 @@ class TwbsToggleButtons {
 		let radios = 0;
 		let checkboxes = 0;
 
-		this.$_element.find(":input").each(function()
+		this.$_element.find(":input").each(function ()
 		{
-			if( this.getAttribute("type") === "radio" )
+			if ( this.getAttribute("type") === "radio" )
 			{
 				radios++;
 			}
-			else if( this.getAttribute("type") === "checkbox" )
+			else if ( this.getAttribute("type") === "checkbox" )
 			{
 				checkboxes++;
 			}
@@ -96,7 +97,7 @@ class TwbsToggleButtons {
 			}
 		});
 
-		if( radios !== 0 && checkboxes !== 0 )
+		if ( radios !== 0 && checkboxes !== 0 )
 		{
 			throw "All input fields must be either of type 'radio' or of type 'checkbox, found both.";
 		}
@@ -113,14 +114,14 @@ class TwbsToggleButtons {
 	{
 		this._options = $.extend({}, TwbsToggleButtons.DEFAULTS(), options || {});
 
-		if( typeof this._options.classActive === "string" )
+		if ( typeof this._options.classActive === "string" )
 		{
-			this._options.classActive = [this._options.classActive];
+			this._options.classActive = [ this._options.classActive ];
 		}
 
-		if( typeof this._options.classInactive === "string" )
+		if ( typeof this._options.classInactive === "string" )
 		{
-			this._options.classInactive = [this._options.classInactive];
+			this._options.classInactive = [ this._options.classInactive ];
 		}
 	};
 
@@ -131,9 +132,9 @@ class TwbsToggleButtons {
 	 */
 	_resetDOM(active_buttons)
 	{
-		this.$_element.find(this._options.twbsBtnSelector).each(function(_, _button)
+		this.$_element.find(this._options.twbsBtnSelector).each(function (_, _button)
 		{
-			if( active_buttons.indexOf(_button) !== -1 )
+			if ( active_buttons.indexOf(_button) !== -1 )
 			{
 				this._activateButton(_button);
 			}
@@ -154,16 +155,16 @@ class TwbsToggleButtons {
 
 		let active_buttons = buttons.filter("." + TwbsToggleButtons.ACTIVE_CLASS()).toArray();
 
-		if( active_buttons.length > 1 && this._getInputType() === TwbsToggleButtons.TYPE_RADIO() )
+		if ( active_buttons.length > 1 && this._getInputType() === TwbsToggleButtons.TYPE_RADIO() )
 		{
-			active_buttons = [active_buttons.pop()];
+			active_buttons = [ active_buttons.pop() ];
 		}
 
 		// (re)set the "aria-pressed" attribute, because this attribute is determining whether
 		// the button is active or not
-		buttons.each(function(_, _button)
+		buttons.each(function (_, _button)
 		{
-			if( active_buttons.indexOf(_button) !== -1 )
+			if ( active_buttons.indexOf(_button) !== -1 )
 			{
 				_button.setAttribute("aria-pressed", "true");
 			}
@@ -172,7 +173,6 @@ class TwbsToggleButtons {
 				_button.setAttribute("aria-pressed", "false");
 			}
 		}.bind(this));
-
 
 		this._resetDOM(active_buttons);
 	};
@@ -185,7 +185,7 @@ class TwbsToggleButtons {
 	 */
 	_eventClick(e)
 	{
-		let current_active_buttons = this.$_element.find(this._options.twbsBtnSelector).filter(function()
+		let current_active_buttons = this.$_element.find(this._options.twbsBtnSelector).filter(function ()
 		{
 			return this.getAttribute("aria-pressed") === "true";
 		}).toArray();
@@ -193,16 +193,20 @@ class TwbsToggleButtons {
 		let clicked_button = e.currentTarget;
 
 		// TYPE_RADIO
-		if( this._getInputType() === TwbsToggleButtons.TYPE_RADIO() )
+		if ( this._getInputType() === TwbsToggleButtons.TYPE_RADIO() )
 		{
-			current_active_buttons = [clicked_button];
+			current_active_buttons = [ clicked_button ];
 
 			// deactivate active button if it is allowed to have no active button
-			if( clicked_button.getAttribute("aria-pressed") === "true" )
+			if ( clicked_button.getAttribute("aria-pressed") === "true" )
 			{
-				if( this.$_element.find(this._options.twbsBtnSelector).find(":input[required]").length === 0 )
+				if ( this.$_element.find(this._options.twbsBtnSelector).find(":input[required]").length === 0 )
 				{
 					current_active_buttons = [];
+				}
+				else
+				{
+					e.stopPropagation();
 				}
 			}
 
@@ -210,7 +214,7 @@ class TwbsToggleButtons {
 		// TYPE_CHECKBOX
 		else
 		{
-			if( clicked_button.getAttribute("aria-pressed") === "true" && current_active_buttons.indexOf(clicked_button) !== -1 )
+			if ( clicked_button.getAttribute("aria-pressed") === "true" && current_active_buttons.indexOf(clicked_button) !== -1 )
 			{
 				current_active_buttons.splice(current_active_buttons.indexOf(clicked_button), 1);
 			}
@@ -232,19 +236,19 @@ class TwbsToggleButtons {
 	 */
 	_activateButton(button)
 	{
-		if( button.dataset.twbsToggleButtonsClassActive !== undefined && button.dataset.twbsToggleButtonsClassActive.length > 0 )
+		if ( button.dataset.twbsToggleButtonsClassActive !== undefined && button.dataset.twbsToggleButtonsClassActive.length > 0 )
 		{
 			button.classList.add(button.dataset.twbsToggleButtonsClassActive);
 		}
 		else
 		{
-			this._options.classActive.forEach(function(__class)
+			this._options.classActive.forEach(function (__class)
 			{
 				button.classList.add(__class);
 			});
 		}
 
-		this._options.classInactive.forEach(function(__class)
+		this._options.classInactive.forEach(function (__class)
 		{
 			button.classList.remove(__class);
 		});
@@ -259,17 +263,17 @@ class TwbsToggleButtons {
 	 */
 	_deactivateButton(button)
 	{
-		if( button.dataset.twbsToggleButtonsClassActive !== undefined && button.dataset.twbsToggleButtonsClassActive.length > 0 )
+		if ( button.dataset.twbsToggleButtonsClassActive !== undefined && button.dataset.twbsToggleButtonsClassActive.length > 0 )
 		{
 			button.classList.remove(button.dataset.twbsToggleButtonsClassActive);
 		}
 
-		this._options.classActive.forEach(function(__class)
+		this._options.classActive.forEach(function (__class)
 		{
 			button.classList.remove(__class);
 		});
 
-		this._options.classInactive.forEach(function(__class)
+		this._options.classInactive.forEach(function (__class)
 		{
 			button.classList.add(__class);
 		});
@@ -279,9 +283,9 @@ class TwbsToggleButtons {
 		// workaround on radio button:
 		//   the attribute "aria-pressed" stays on "true" (even if the attribute is changed furthermore),
 		//   remove the attribute manually with setTimeout() function 
-		if( this._getInputType() === TwbsToggleButtons.TYPE_RADIO() && button.getAttribute("aria-pressed") === "true" )
+		if ( this._getInputType() === TwbsToggleButtons.TYPE_RADIO() && button.getAttribute("aria-pressed") === "true" )
 		{
-			window.setTimeout(function()
+			window.setTimeout(function ()
 			{
 				button.classList.remove(TwbsToggleButtons.ACTIVE_CLASS());
 				button.setAttribute("aria-pressed", "false");
