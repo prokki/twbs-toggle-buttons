@@ -226,6 +226,11 @@ class TwbsToggleButtons
 
 		this._resetDOM(current_active_buttons);
 
+		window.setTimeout(function ()
+		{
+			e.target.dispatchEvent(new Event("twbsToggleButtons:activate"));
+		}, 0);
+
 		return true;
 	};
 
