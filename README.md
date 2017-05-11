@@ -20,7 +20,7 @@ Have a look at [jsfiddle](https://jsfiddle.net/prokki/tccew78a/).
   * [classInctive](#classinactive)
 * [Events](#events)  
   * [Click Event](#click-event)
-  * [twbsToggleButtons:activate Event](#twbstogglebuttons-activate-event)  
+  * [twbsToggleButtons:activate Event](#twbstogglebuttonsactivate-event)  
 * [Tricks and Tips](#tricks-and-tips)
   * [Checkboxes or Radio Buttons](#checkboxes-or-radio-buttons)
   * [Required Radio Group](#required-radio-group)
@@ -107,7 +107,7 @@ two event types to handle events.
 The `click` event is fired on the button.
 
 **:exclamation: Be careful to get the right state of the button!** To get the state after button toggling use event
-[twbsToggleButtons:activate Event](#twbstogglebuttons-activate-event).
+[twbsToggleButtons:activate Event](#twbstogglebuttonsactivate-event).
 
 ```javascript
 $(".btn-group-toggle").find("[role='button']").on("click", function (e)
