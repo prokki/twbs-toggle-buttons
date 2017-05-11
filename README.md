@@ -18,6 +18,9 @@ Have a look at [jsfiddle](https://jsfiddle.net/prokki/tccew78a/).
   * [twbsBtnSelector](#twbsbtnselector)
   * [classActive](#classactive)
   * [classInctive](#classinactive)
+* [Events](#events)  
+  * [Click Event](#click-event)
+  * [twbsToggleButtons:activate Event](#twbstogglebuttons-activate-event)  
 * [Tricks and Tips](#tricks-and-tips)
   * [Checkboxes or Radio Buttons](#checkboxes-or-radio-buttons)
   * [Required Radio Group](#required-radio-group)
@@ -94,6 +97,35 @@ $(".btn-group-toggle").twbsToggleButtons({
 
 See [classActive](#classActive)
 
+### Events
+
+To avoid problems with the order of executing click events on the twbs-toggle-buttons you can use
+two event types to handle events.
+
+#### Click Event
+
+The `click` event is fired on the button.
+
+**:exclamation: Be careful to get the right state of the button!** To get the state after button toggling use event
+[twbsToggleButtons:activate Event](#twbstogglebuttons-activate-event).
+
+```javascript
+$(".btn-group-toggle").find("[role='button']").on("click", function (e)
+{
+    console.log(e);
+});
+```
+
+#### twbsToggleButtons:activate Event
+
+This event is fired after the state of the button getting activated was changed.
+
+```javascript
+$(".btn-group-toggle").find("[role='button']").on("twbsToggleButtons:activate", function (e)
+{
+    console.log(e);
+});
+```
 
 ### Tricks and Tips
 
