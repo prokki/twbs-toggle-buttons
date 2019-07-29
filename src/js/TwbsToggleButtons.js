@@ -259,6 +259,18 @@ class TwbsToggleButtons
 		});
 
 		$(button).find(":input").attr("checked", "checked");
+
+		// workaround on radio and checkbox button:
+		// the attribute "aria-pressed" stays on "false" (even if the attribute is changed furthermore),
+		// add the attribute manually with setTimeout() function 
+		if ((this._getInputType() === TwbsToggleButtons.TYPE_RADIO() || this._getInputType() === TwbsToggleButtons.TYPE_CHECKBOX()) && button.getAttribute("aria-pressed") === "false" )
+		{
+			window.setTimeout(function ()
+			{
+				button.classList.remove(TwbsToggleButtons.ACTIVE_CLASS());
+				button.setAttribute("aria-pressed", "true");
+			}, 0);
+		}
 	};
 
 	/**
@@ -285,10 +297,10 @@ class TwbsToggleButtons
 
 		$(button).find(":input").attr("checked", null);
 
-		// workaround on radio button:
-		//   the attribute "aria-pressed" stays on "true" (even if the attribute is changed furthermore),
-		//   remove the attribute manually with setTimeout() function 
-		if ( this._getInputType() === TwbsToggleButtons.TYPE_RADIO() && button.getAttribute("aria-pressed") === "true" )
+		// workaround on radio and checkbox button:
+		// the attribute "aria-pressed" stays on "true" (even if the attribute is changed furthermore),
+		// remove the attribute manually with setTimeout() function 
+		if ((this._getInputType() === TwbsToggleButtons.TYPE_RADIO() || this._getInputType() === TwbsToggleButtons.TYPE_CHECKBOX()) && button.getAttribute("aria-pressed") === "true" )
 		{
 			window.setTimeout(function ()
 			{
