@@ -1,12 +1,12 @@
 ## Twitter Bootstrap Toggle Buttons
 
-[![LICENSE](https://img.shields.io/badge/release-0.0.3-blue.svg?style=flat)](https://github.com/prokki/twbs-toggle-buttons/releases/tag/0.0.2)
+[![LICENSE](https://img.shields.io/badge/release-0.0.3-blue.svg?style=flat)](https://github.com/prokki/twbs-toggle-buttons/releases/tag/0.0.3)
 [![Packagist](https://img.shields.io/badge/Packagist-0.0.3-blue.svg?style=flat)](https://packagist.org/packages/prokki/twbs-toggle-buttons)
 [![LICENSE](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](LICENSE)
 [![https://jquery.com/](https://img.shields.io/badge/jQuery-3.1.1-red.svg?style=flat)](https://jquery.com/)
-[![https://getbootstrap.com/](https://img.shields.io/badge/Bootstrap-4.3.1.svg?style=flat)](https://getbootstrap.com/)
+[![https://getbootstrap.com/docs/4.3/](https://img.shields.io/badge/Bootstrap-4.3-red.svg?style=flat)](https://getbootstrap.com/docs/4.3/)
 
-This is a small javascript snippet extending the [Bootstrap Button Groups](https://v4-alpha.getbootstrap.com/components/button-group/) to use the toggle buttons as radio buttons or checkboxes. 
+This is a small javascript snippet extending the [Bootstrap Button Groups](https://getbootstrap.com/docs/4.3/components/button-group/) to use the toggle buttons as radio buttons or checkboxes.
 
 Have a look at [jsfiddle](https://jsfiddle.net/prokki/tccew78a/).
 
