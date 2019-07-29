@@ -258,6 +258,7 @@ class TwbsToggleButtons
 			button.classList.remove(__class);
 		});
 
+		$(button).find(":input").prop("checked", true);
 		$(button).find(":input").attr("checked", "checked");
 	};
 
@@ -283,6 +284,7 @@ class TwbsToggleButtons
 			button.classList.add(__class);
 		});
 
+		$(button).find(":input").prop("checked", false);
 		$(button).find(":input").attr("checked", null);
 
 		// workaround on radio button:
