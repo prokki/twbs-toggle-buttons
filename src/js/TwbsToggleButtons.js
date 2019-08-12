@@ -1,4 +1,4 @@
-/** @preserve Twitter Bootstrap Toogle Buttons 0.0.3
+/** @preserve Twitter Bootstrap Toogle Buttons 0.0.4
  * Available under the MIT license.
  * See https://github.com/prokki/twbs-toggle-buttons for more information.
  */
