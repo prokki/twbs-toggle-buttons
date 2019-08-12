@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.0.4] - 2019-08-12
+
+### Fixed
+
+* [Issue when using with IE11](https://github.com/prokki/twbs-toggle-buttons/issues/2) solved.
+* Fixed badges and required version in [README.md](README.md) and heading levels in [CHANGELOG.md](CHANGELOG.md).
+
+### Added
+
+* New [CONTRIBUTING](CONTRIBUTING.md) file to simplify collaboration.
+
 ## [0.0.3] - 2019-07-29
 
 ### Fixed
