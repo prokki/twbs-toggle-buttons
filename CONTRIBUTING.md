@@ -3,6 +3,8 @@
 ## Table of Contents
 
 * [Create a Release](#create-a-release)
+  * [Prepare All Files](#prepare-all-files)
+    * [TwbsToggleButtons.js](#twbsToggleButtons.js)
   * [Generate Dist Files](#generate-dist-files)
     * [Compile Assets With Google Closure Compiler](#compile-assets-with-google-closure-compiler)
 
@@ -12,7 +14,24 @@
 Before you publish a new release/tag, be sure to update the dist files according to the
 following description.
  
-### Generating Dist Files
+### Prepare All Files
+
+#### TwbsToggleButtons.js
+
+Change the release version to the next tag in the header comment of file [PROJECT_DIR/src/js/TwbsToggleButtons.js](src/js/TwbsToggleButtons.js).
+
+This line is necessary to display the release tag in the compiled dist files. 
+
+Example: Change
+```js
+/** @preserve Twitter Bootstrap Toogle Buttons 0.0.3
+```
+to
+```js
+/** @preserve Twitter Bootstrap Toogle Buttons 0.0.4
+```
+
+### Generate Dist Files
 
 The dist files are a collection of all **packed** and **minified** assets (javascript an d css files).
 
