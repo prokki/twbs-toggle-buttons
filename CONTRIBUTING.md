@@ -4,7 +4,8 @@
 
 * [Create a Release](#create-a-release)
   * [Prepare All Files](#prepare-all-files)
-    * [TwbsToggleButtons.js](#twbsToggleButtons.js)
+    * [TwbsToggleButtons.js](#twbstogglebuttons.js)
+    * [CHANGELOG.md](#changelog.md)
   * [Generate Dist Files](#generate-dist-files)
     * [Compile Assets With Google Closure Compiler](#compile-assets-with-google-closure-compiler)
 
@@ -30,6 +31,23 @@ to
 ```js
 /** @preserve Twitter Bootstrap Toogle Buttons 0.0.4
 ```
+
+#### CHANGELOG.md
+
+Change `[Unreleased]` to the next release tag and add all changes in file [PROJECT_DIR/CHANGELOG.md](CHANGELOG.md).
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/). 
+
+```markdown
+## [0.0.2] - 2017-05-11
+
+### Added
+
+* Added new Event `twbsToggleButtons:activate` to get new activated button **after** the toggle/cklick.
+```
+
+Add a new `[Unreleased]` section in the top.
+
 
 ### Generate Dist Files
 
