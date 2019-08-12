@@ -226,9 +226,21 @@ class TwbsToggleButtons
 
 		this._resetDOM(current_active_buttons);
 
-		window.setTimeout(function ()
-		{
-			e.target.dispatchEvent(new Event("twbsToggleButtons:activate"));
+		window.setTimeout(function () {
+
+			let event = null;
+
+			if ( typeof (Event) === "function" )
+			{
+				event = new Event("twbsToggleButtons:activate");
+			}
+			else
+			{
+				event = document.createEvent("Event");
+				event.initEvent("twbsToggleButtons:activate", true, true);
+			}
+
+			e.target.dispatchEvent(event);
 		}, 0);
 
 		return true;
@@ -263,7 +275,7 @@ class TwbsToggleButtons
 
 		// workaround on radio and checkbox button:
 		// the attribute "aria-pressed" stays on "false" (even if the attribute is changed furthermore),
-		// add the attribute manually with setTimeout() function 
+		// add the attribute manually with setTimeout() function
 		if ((this._getInputType() === TwbsToggleButtons.TYPE_RADIO() || this._getInputType() === TwbsToggleButtons.TYPE_CHECKBOX()) && button.getAttribute("aria-pressed") === "false" )
 		{
 			window.setTimeout(function ()
@@ -301,7 +313,7 @@ class TwbsToggleButtons
 
 		// workaround on radio and checkbox button:
 		// the attribute "aria-pressed" stays on "true" (even if the attribute is changed furthermore),
-		// remove the attribute manually with setTimeout() function 
+		// remove the attribute manually with setTimeout() function
 		if ((this._getInputType() === TwbsToggleButtons.TYPE_RADIO() || this._getInputType() === TwbsToggleButtons.TYPE_CHECKBOX()) && button.getAttribute("aria-pressed") === "true" )
 		{
 			window.setTimeout(function ()
