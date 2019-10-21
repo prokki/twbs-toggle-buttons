@@ -1,3 +1,5 @@
+# IDE files
 /.idea
-/.gitrelease
+
+# compiler binaries
 /bin
